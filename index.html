@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Corner Market — specialty pizza, subs, and sandwiches in Holliston, MA. As featured on Phantom Gourmet. Order online for pickup or delivery.">
+  <title>The Corner Market | Pizza & Subs | Holliston, MA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Custom Properties ── */
+    :root {
+      --color-crimson:   #C0272D;
+      --color-gold:      #F2A81D;
+      --color-charcoal:  #1E1E1E;
+      --color-cream:     #FAF3E0;
+      --color-rust:      #A0401A;
+      --color-smoke:     #272320;
+      --color-smoke-2:   #2E2926;
+      --color-white:     #FFFFFF;
+      --color-gold-light:#FDE9A2;
+      --color-gold-dim:  #c47f00;
+
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
+
+      --radius-card:  10px;
+      --radius-btn:   6px;
+      --shadow-card:  0 4px 28px rgba(0,0,0,0.18);
+      --shadow-hover: 0 12px 40px rgba(0,0,0,0.32);
+      --transition:   0.25s ease;
+
+      --max-width:    1160px;
+      --nav-height:   68px;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--color-cream);
+      color: var(--color-charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font: inherit; }
+
+    /* ── Scroll anchors ── */
+    section[id], header[id] { scroll-margin-top: var(--nav-height); }
+
+    /* ── Container ── */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Utility ── */
+    .section-label {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 12px;
+    }
+    .section-label--dark { color: var(--color-rust); }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--radius-btn);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
+      white-space: nowrap;
+    }
+    .btn:focus-visible { outline: 3px solid var(--color-gold); outline-offset: 3px; }
+    .btn-primary {
+      background: var(--color-crimson);
+      color: var(--color-white);
+      box-shadow: 0 4px 16px rgba(192,39,45,0.35);
+    }
+    .btn-primary:hover {
+      background: var(--color-rust);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(192,39,45,0.45);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--color-white);
+      border: 2px solid rgba(255,255,255,0.55);
+    }
+    .btn-outline:hover {
+      border-color: var(--color-white);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+    .btn-outline--dark {
+      color: var(--color-charcoal);
+      border-color: rgba(255,255,255,0.4);
+    }
+    .btn-delivery {
+      background: transparent;
+      color: var(--color-white);
+      border: 2px solid rgba(255,255,255,0.55);
+      padding: 10px 20px;
+      font-size: 13px;
+    }
+    .btn-delivery:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: var(--color-white);
+      transform: translateY(-2px);
+    }
+    .btn-nav {
+      background: var(--color-crimson);
+      color: var(--color-white);
+      padding: 9px 20px;
+      font-size: 13px;
+      border-radius: 4px;
+    }
+    .btn-nav:hover { background: var(--color-rust); transform: translateY(-1px); }
+
+    /* ──────────────────────────────
+       NAV
+    ────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      background: transparent;
+      transition: background 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease;
+    }
+    nav.scrolled {
+      background: rgba(39,35,32,0.97);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--nav-height);
+    }
+    .nav-logo {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-white);
+      letter-spacing: 0.03em;
+      line-height: 1;
+    }
+    .nav-logo span { color: var(--color-gold); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--color-gold); }
+    .nav-links a:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 3px; border-radius: 2px; }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      cursor: pointer;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-white);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 767px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--nav-height);
+        left: 0; right: 0;
+        background: var(--color-smoke);
+        flex-direction: column;
+        padding: 24px;
+        gap: 20px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 15px; }
+      .btn-nav { width: 100%; justify-content: center; }
+    }
+
+    /* ──────────────────────────────
+       HERO
+    ────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-color: #120a06;
+      background-image:
+        linear-gradient(160deg, rgba(18,8,4,0.96) 0%, rgba(160,45,20,0.72) 60%, rgba(18,8,4,0.9) 100%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 60L60 0M-5 5L5-5M55 65L65 55' stroke='%23ffffff' stroke-opacity='0.03' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* Subtle vignette overlay */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.55) 100%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 780px;
+      padding: 0 24px;
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 20px;
+      opacity: 0;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(48px, 9vw, 96px);
+      font-weight: 900;
+      line-height: 0.95;
+      color: var(--color-white);
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+      opacity: 0;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--color-gold);
+    }
+
+    .hero-tagline {
+      font-family: var(--font-heading);
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-style: italic;
+      font-weight: 700;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 40px;
+      opacity: 0;
+    }
+    .hero-tagline em { color: var(--color-gold); font-style: italic; }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+    }
+
+    .hero-arrow {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: 22px;
+      z-index: 1;
+      opacity: 0;
+    }
+
+    /* Hero grain overlay */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    /* ──────────────────────────────
+       ANIMATIONS
+    ────────────────────────────── */
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(28px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-18px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes bounce {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50%       { transform: translateX(-50%) translateY(9px); }
+      }
+
+      .hero-label   { animation: fadeInDown 0.6s ease 0.15s both; }
+      .hero-title   { animation: fadeInUp   0.85s ease 0.35s both; }
+      .hero-tagline { animation: fadeInUp   0.7s  ease 0.6s  both; }
+      .hero-buttons { animation: fadeInUp   0.7s  ease 0.8s  both; }
+      .hero-arrow   { animation: bounce     1.5s  ease-in-out 1.2s infinite, fadeInUp 0.5s ease 1.4s both; }
+
+      /* Scroll reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(36px);
+        transition:
+          opacity  0.5s ease calc(var(--i, 0) * 90ms),
+          transform 0.5s ease calc(var(--i, 0) * 90ms);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-heading {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .reveal-heading.visible { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Fallback for reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-label, .hero-title, .hero-tagline, .hero-buttons, .hero-arrow {
+        opacity: 1;
+        animation: none;
+      }
+      .reveal, .reveal-heading { opacity: 1; transform: none; }
+    }
+
+    /* ──────────────────────────────
+       PHANTOM GOURMET BAND
+    ────────────────────────────── */
+    #featured {
+      background: var(--color-gold);
+      padding: 36px 0;
+    }
+    .featured-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .featured-tv {
+      color: var(--color-smoke);
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+    .featured-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .featured-eyebrow {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-smoke);
+      opacity: 0.65;
+    }
+    .featured-show {
+      font-family: var(--font-heading);
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: var(--color-smoke);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .featured-divider {
+      width: 1px;
+      height: 48px;
+      background: rgba(30,20,10,0.2);
+      flex-shrink: 0;
+    }
+    .featured-quote {
+      font-family: var(--font-heading);
+      font-size: clamp(15px, 2vw, 19px);
+      font-style: italic;
+      color: var(--color-smoke);
+      opacity: 0.8;
+      max-width: 380px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 600px) {
+      .featured-divider { display: none; }
+    }
+
+    /* ──────────────────────────────
+       SPECIALTY PIZZAS
+    ────────────────────────────── */
+    #pizzas {
+      background: var(--color-smoke);
+      padding: 100px 0 112px;
+    }
+    .pizzas-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .pizzas-header h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 900;
+      color: var(--color-white);
+      line-height: 1.05;
+      margin-bottom: 12px;
+    }
+    .pizzas-header .sub {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 20px;
+      color: var(--color-gold);
+      opacity: 0.85;
+    }
+
+    .pizza-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 20px;
+    }
+
+    .pizza-card {
+      background: var(--color-smoke-2);
+      border-radius: var(--radius-card);
+      border-top: 3px solid var(--color-crimson);
+      padding: 28px 24px 24px;
+      box-shadow: var(--shadow-card);
+      cursor: default;
+      transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        border-color var(--transition);
+    }
+    .pizza-card:hover {
+      transform: scale(1.03) translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      border-top-color: var(--color-gold);
+    }
+
+    .pizza-emoji {
+      font-size: 36px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .pizza-name {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-white);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .pizza-desc {
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+    .pizza-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .pizza-price {
+      display: inline-block;
+      background: var(--color-gold);
+      color: var(--color-charcoal);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.02em;
+    }
+    .pizza-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-crimson);
+      border: 1px solid rgba(192,39,45,0.4);
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
+    .pizzas-cta {
+      text-align: center;
+      margin-top: 52px;
+    }
+
+    /* ──────────────────────────────
+       FULL MENU
+    ────────────────────────────── */
+    #menu {
+      background: var(--color-cream);
+      padding: 100px 0 112px;
+    }
+    .menu-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .menu-header h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(34px, 5vw, 54px);
+      font-weight: 900;
+      color: var(--color-charcoal);
+      line-height: 1.05;
+    }
+    .menu-header p {
+      font-size: 16px;
+      color: rgba(30,20,10,0.55);
+      margin-top: 10px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+
+    .menu-cat {
+      background: var(--color-white);
+      border-radius: var(--radius-card);
+      border-left: 4px solid var(--color-crimson);
+      padding: 28px 24px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    }
+    .menu-cat-title {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-charcoal);
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(30,20,10,0.1);
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px dotted rgba(30,20,10,0.15);
+      font-size: 14px;
+    }
+    .menu-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .menu-item-name { color: var(--color-charcoal); font-weight: 500; }
+    .menu-item-note {
+      font-size: 11.5px;
+      color: rgba(30,20,10,0.45);
+      font-style: italic;
+      margin-top: 2px;
+      display: block;
+    }
+    .menu-item-price {
+      color: var(--color-rust);
+      font-weight: 600;
+      font-size: 13px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .menu-badge {
+      display: inline-block;
+      background: var(--color-gold-light);
+      color: var(--color-rust);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 12px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .menu-phone-cta {
+      text-align: center;
+      padding: 48px 24px;
+      background: var(--color-white);
+      border-radius: var(--radius-card);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+    .menu-phone-cta p {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-style: italic;
+      color: rgba(30,20,10,0.5);
+      margin-bottom: 12px;
+    }
+    .menu-phone-number {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 900;
+      color: var(--color-crimson);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      transition: color var(--transition);
+    }
+    .menu-phone-number:hover { color: var(--color-rust); }
+
+    /* ──────────────────────────────
+       ABOUT
+    ────────────────────────────── */
+    #about {
+      background: var(--color-charcoal);
+      padding: 100px 0 112px;
+    }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .about-copy h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 4vw, 50px);
+      font-weight: 900;
+      color: var(--color-white);
+      line-height: 1.1;
+      margin-bottom: 28px;
+    }
+    .about-copy h2 em { color: var(--color-gold); font-style: italic; }
+    .about-copy p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.68);
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+    .about-copy p strong { color: var(--color-gold); font-weight: 600; }
+    .about-copy p:last-child { margin-bottom: 0; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+    .stat-block {
+      background: var(--color-smoke-2);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .stat-block:hover { background: #352e2a; }
+    .stat-number {
+      font-family: var(--font-heading);
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--color-gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 860px) {
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .about-stats { max-width: 420px; }
+    }
+
+    /* ──────────────────────────────
+       INFO BAR
+    ────────────────────────────── */
+    #info {
+      background: var(--color-crimson);
+      padding: 80px 0 88px;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+    .info-block h3 {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 20px;
+    }
+    .info-block p,
+    .info-block address {
+      font-style: normal;
+      color: var(--color-white);
+      line-height: 1.9;
+      font-size: 15px;
+    }
+    .info-block a {
+      color: var(--color-white);
+      text-decoration: underline;
+      text-decoration-color: rgba(255,255,255,0.35);
+      text-underline-offset: 3px;
+      transition: text-decoration-color var(--transition);
+    }
+    .info-block a:hover { text-decoration-color: var(--color-white); }
+    .info-block a:focus-visible { outline: 2px solid var(--color-white); outline-offset: 3px; border-radius: 2px; }
+
+    .info-hours-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--color-white);
+      font-size: 15px;
+      line-height: 2;
+    }
+    .info-hours-row .day { opacity: 0.7; }
+    .info-hours-row .time { font-weight: 600; }
+    .info-hours-row .closed { color: rgba(255,255,255,0.45); font-style: italic; }
+
+    .info-order-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 860px) {
+      .info-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+    @media (max-width: 560px) {
+      .info-grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+
+    /* ──────────────────────────────
+       FOOTER
+    ────────────────────────────── */
+    footer {
+      background: var(--color-charcoal);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 0 32px;
+    }
+    .footer-inner { display: flex; flex-direction: column; gap: 20px; }
+    .footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-white);
+    }
+    .footer-social {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer-social a {
+      color: rgba(255,255,255,0.5);
+      transition: color var(--transition);
+      display: flex;
+      align-items: center;
+    }
+    .footer-social a:hover { color: var(--color-gold); }
+    .footer-social a:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 4px; border-radius: 4px; }
+    .footer-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    .footer-catering {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--color-gold);
+      text-align: center;
+      opacity: 0.85;
+    }
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.28);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav id="main-nav" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-logo">The <span>Corner</span> Market</a>
+      <button class="nav-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#info">Hours &amp; Location</a></li>
+        <li>
+          <a href="https://order.toasttab.com/online/the-corner-market"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn-nav">Order Online</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header id="hero">
+    <div class="hero-inner">
+      <span class="hero-label">Holliston, MA &middot; 12 Concord Street</span>
+      <h1 class="hero-title">The Corner<br><em>Market</em></h1>
+      <p class="hero-tagline"><em>"The best little restaurant with the biggest flavor."</em></p>
+      <div class="hero-buttons">
+        <a href="https://order.toasttab.com/online/the-corner-market"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn btn-primary">
+          Order Online
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#menu" class="btn btn-outline">See Our Menu</a>
+      </div>
+    </div>
+    <div class="hero-arrow" aria-hidden="true">↓</div>
+  </header>
+
+  <!-- ── PHANTOM GOURMET ── -->
+  <section id="featured" aria-label="As featured on Phantom Gourmet">
+    <div class="container featured-inner">
+      <svg class="featured-tv" width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <rect x="4" y="12" width="40" height="28" rx="4" stroke="currentColor" stroke-width="2.5"/>
+        <path d="M18 40h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M16 6l8 6 8-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="24" cy="26" r="6" stroke="currentColor" stroke-width="2"/>
+        <circle cx="24" cy="26" r="2" fill="currentColor"/>
+      </svg>
+      <div class="featured-text">
+        <span class="featured-eyebrow">As Seen On</span>
+        <span class="featured-show">Phantom Gourmet</span>
+      </div>
+      <div class="featured-divider" aria-hidden="true"></div>
+      <p class="featured-quote">"One of New England's best-kept secrets — and now everyone knows."</p>
+    </div>
+  </section>
+
+  <!-- ── SPECIALTY PIZZAS ── -->
+  <section id="pizzas">
+    <div class="container">
+      <div class="pizzas-header reveal-heading">
+        <span class="section-label">Our Famous Pies</span>
+        <h2>Specialty Pizzas</h2>
+        <p class="sub">Where we get weird — and wonderful.</p>
+      </div>
+
+      <div class="pizza-grid">
+
+        <article class="pizza-card reveal" style="--i:0">
+          <span class="pizza-emoji" aria-hidden="true">🦀</span>
+          <h3 class="pizza-name">Crab Rangoon</h3>
+          <p class="pizza-desc">Your favorite appetizer, pizza-fied. Creamy filling, wontons, mozzarella, sweet chili drizzle.</p>
+          <div class="pizza-footer">
+            <span class="pizza-price">from $19</span>
+            <span class="pizza-tag">Fan Favorite</span>
+          </div>
+        </article>
+
+        <article class="pizza-card reveal" style="--i:1">
+          <span class="pizza-emoji" aria-hidden="true">🥔</span>
+          <h3 class="pizza-name">Mr. Potato Head</h3>
+          <p class="pizza-desc">More loaded than the toy. Mashed potatoes, provolone, cheddar, garlic, bacon.</p>
+          <div class="pizza-footer">
+            <span class="pizza-price">from $18</span>
+          </div>
+        </article>
+
+        <article class="pizza-card reveal" style="--i:2">
+          <span class="pizza-emoji" aria-hidden="true">🥒</span>
+          <h3 class="pizza-name">Pickle Pizza</h3>
+          <p class="pizza-desc">For the brave. For the enlightened. Garlic aioli, Grande cheese, pickle chips, bacon.</p>
+          <div class="pizza-footer">
+            <span class="pizza-price">from $17</span>
+            <span class="pizza-tag">Cult Classic</span>
+          </div>
+        </article>
+
+        <article class="pizza-card reveal" style="--i:3">
+          <span class="pizza-emoji" aria-hidden="true">🌶️</span>
+          <h3 class="pizza-name">Equinsu Ocha</h3>
+          <p class="pizza-desc">Do NOT call it the White Tiger Pizza. Garlic base, ricotta, mozzarella, tomato, Italian sausage.</p>
+          <div class="pizza-footer">
+            <span class="pizza-price">from $19</span>
+          </div>
+        </article>
+
+        <article class="pizza-card reveal" style="--i:4">
+          <span class="pizza-emoji" aria-hidden="true">🥩</span>
+          <h3 class="pizza-name">Steakbomb</h3>
+          <p class="pizza-desc">A sub and a pie had a beautiful baby. London broil, onions, mushrooms, chipotle mayo, garlic aioli.</p>
+          <div class="pizza-footer">
+            <span class="pizza-price">from $21</span>
+          </div>
+        </article>
+
+        <article class="pizza-card reveal" style="--i:5">
+          <span class="pizza-emoji" aria-hidden="true">🧀</span>
+          <h3 class="pizza-name">BBQ Mac & Cheese</h3>
+          <p class="pizza-desc">Three comfort foods in a crust. Cheddar mac, crispy bacon, mozzarella, Sweet Baby Ray's.</p>
+          <div class="pizza-footer">
+            <span class="pizza-price">from $20</span>
+          </div>
+        </article>
+
+        <article class="pizza-card reveal" style="--i:6">
+          <span class="pizza-emoji" aria-hidden="true">🍕</span>
+          <h3 class="pizza-name">Sicilian</h3>
+          <p class="pizza-desc">Old world, new obsession. Square pan, crispy mozzarella crust, deep flavor.</p>
+          <div class="pizza-footer">
+            <span class="pizza-price">$24</span>
+            <span class="pizza-tag">Square Pan</span>
+          </div>
+        </article>
+
+      </div><!-- /pizza-grid -->
+
+      <div class="pizzas-cta reveal-heading">
+        <a href="https://order.toasttab.com/online/the-corner-market"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn btn-primary">Order a Pie Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FULL MENU ── -->
+  <section id="menu">
+    <div class="container">
+      <div class="menu-header reveal-heading">
+        <span class="section-label section-label--dark">What We Serve</span>
+        <h2>The Full Menu</h2>
+        <p>Something for everyone — even the picky ones.</p>
+      </div>
+
+      <div class="menu-grid">
+
+        <div class="menu-cat reveal" style="--i:0">
+          <h3 class="menu-cat-title">🍕 Pizza</h3>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Specialty Pies<span class="menu-badge">7 options</span></span>
+              <span class="menu-item-note">Hand-tossed, 16" — dough made fresh daily</span>
+            </div>
+            <span class="menu-item-price">from $17</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Build Your Own</span>
+              <span class="menu-item-note">Cheese + up to 3 toppings</span>
+            </div>
+            <span class="menu-item-price">from $12</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Sicilian (Square Pan)</span>
+              <span class="menu-item-note">Crispy mozzarella crust</span>
+            </div>
+            <span class="menu-item-price">$24</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Gluten-Free Crust</span>
+              <span class="menu-item-note">Available on any pie</span>
+            </div>
+            <span class="menu-item-price">+$3</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Calzone</span>
+            </div>
+            <span class="menu-item-price">from $14</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Cheesy Breadsticks<span class="menu-badge">Popular</span></span>
+              <span class="menu-item-note">The size of a pizza. Seriously.</span>
+            </div>
+            <span class="menu-item-price">$18</span>
+          </div>
+        </div>
+
+        <div class="menu-cat reveal" style="--i:1">
+          <h3 class="menu-cat-title">🥖 Subs & Paninis</h3>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Cold Subs</span>
+              <span class="menu-item-note">Boar's Head meats &amp; cheeses</span>
+            </div>
+            <span class="menu-item-price">from $8</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Hot Subs</span>
+              <span class="menu-item-note">Steakbomb, meatball, chicken parm &amp; more</span>
+            </div>
+            <span class="menu-item-price">from $9</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Paninis<span class="menu-badge">Popular</span></span>
+              <span class="menu-item-note">Boar's Nest, Brady, Reuben, Pilgrim</span>
+            </div>
+            <span class="menu-item-price">from $10</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Porchetta Focaccia</span>
+              <span class="menu-item-note">Housemade porchetta, provolone, sautéed onions</span>
+            </div>
+            <span class="menu-item-price">$11</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Over 40 varieties total</span>
+              <span class="menu-item-note">Ask us what's good today</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-cat reveal" style="--i:2">
+          <h3 class="menu-cat-title">🥗 Salads & Lighter Fare</h3>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Salads</span>
+              <span class="menu-item-note">Caesar, Greek, Cobb, Antipasto, House</span>
+            </div>
+            <span class="menu-item-price">from $9</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Acai Bowls & Smoothies</span>
+            </div>
+            <span class="menu-item-price">from $10</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Taco Trio</span>
+              <span class="menu-item-note">Three tacos, your way</span>
+            </div>
+            <span class="menu-item-price">$7</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Burritos</span>
+            </div>
+            <span class="menu-item-price">from $8</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Homemade Soups</span>
+              <span class="menu-item-note">Daily rotation</span>
+            </div>
+            <span class="menu-item-price">from $5</span>
+          </div>
+        </div>
+
+        <div class="menu-cat reveal" style="--i:3">
+          <h3 class="menu-cat-title">🍗 Extras & Deals</h3>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Wings</span>
+            </div>
+            <span class="menu-item-price">from $12</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Kids' Menu</span>
+              <span class="menu-item-note">Hot dog, grilled cheese, PB&amp;J, quesadilla</span>
+            </div>
+            <span class="menu-item-price">$3</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">2 Cheese Pizzas Deal<span class="menu-badge">Save</span></span>
+            </div>
+            <span class="menu-item-price">$28</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Family Meal Deal</span>
+            </div>
+            <span class="menu-item-price">$50</span>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Beer &amp; Wine</span>
+              <span class="menu-item-note">Available in store</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <span class="menu-item-name">Catering</span>
+              <span class="menu-item-note">Full menu, 72-hr advance notice</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /menu-grid -->
+
+      <div class="menu-phone-cta reveal-heading">
+        <p>Can't decide? Just give us a call.</p>
+        <a href="tel:7742331966" class="menu-phone-number">(774) 233-1966</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section id="about">
+    <div class="container about-inner">
+      <div class="about-copy">
+        <span class="section-label reveal-heading">Our Story</span>
+        <h2 class="reveal-heading">Not a Chain.<br><em>Just Good Food.</em></h2>
+        <p class="reveal" style="--i:0">
+          We're not a chain. We're not trying to be. The Corner Market is the kind of place where the owner knows your order, the dough is made <strong>fresh every morning</strong>, and the pizza names make you laugh before you even take a bite.
+        </p>
+        <p class="reveal" style="--i:1">
+          Tucked into Concord Street in Holliston, MA, we've been feeding this town with specialty pies, overstuffed subs, and seriously good food since day one. Yeah, <strong>Phantom Gourmet found us.</strong> But our regulars found us first.
+        </p>
+        <p class="reveal" style="--i:2">
+          Come hungry. Leave happy. Order the Pickle Pizza — <em>you'll thank us.</em>
+        </p>
+      </div>
+      <div class="about-stats reveal" style="--i:1">
+        <div class="stat-block">
+          <span class="stat-number">4.7★</span>
+          <span class="stat-label">Google rating from hundreds of happy customers</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">40+</span>
+          <span class="stat-label">Subs, paninis &amp; sandwiches on the menu</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">1×</span>
+          <span class="stat-label">Fresh dough batch made every single morning</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">Reasons to come back again and again</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INFO BAR ── -->
+  <section id="info" aria-label="Hours, location, and ordering">
+    <div class="container info-grid">
+
+      <div class="info-block">
+        <h3>Hours</h3>
+        <div>
+          <div class="info-hours-row">
+            <span class="day">Mon – Sat</span>
+            <span class="time">10:30 AM – 8:00 PM</span>
+          </div>
+          <div class="info-hours-row">
+            <span class="day">Sunday</span>
+            <span class="time closed">Closed</span>
+          </div>
+        </div>
+        <p style="margin-top:16px; font-size:13px; opacity:0.6; font-style:italic;">
+          Sunday hours may vary seasonally — call ahead to confirm.
+        </p>
+      </div>
+
+      <div class="info-block">
+        <h3>Find Us</h3>
+        <address>
+          12 Concord St<br>
+          Holliston, MA 01746<br><br>
+          <a href="tel:7742331966">(774) 233-1966</a><br>
+          <a href="https://maps.google.com/?q=12+Concord+St,+Holliston,+MA+01746"
+             target="_blank"
+             rel="noopener noreferrer">
+            Get Directions →
+          </a>
+        </address>
+      </div>
+
+      <div class="info-block">
+        <h3>Order Now</h3>
+        <div class="info-order-buttons">
+          <a href="https://order.toasttab.com/online/the-corner-market"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn-delivery">Order Online (Toast)</a>
+          <a href="https://www.doordash.com/store/the-corner-market-holliston-23187133/1000"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn-delivery">Order on DoorDash</a>
+          <a href="https://www.ubereats.com/store/the-corner-market/05h1U9IWWO-OccIFZlKmAw"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn-delivery">Order on Uber Eats</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <span class="footer-logo">The Corner Market</span>
+        <div class="footer-social" aria-label="Social media links">
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/cornermarketholliston"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Facebook">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/cornermarketholliston"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+          </a>
+          <!-- TikTok -->
+          <a href="https://www.tiktok.com/@cornermarketholliston"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="TikTok">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.28 6.28 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-catering">
+        Catering available for events &amp; gatherings — call <a href="tel:7742331966" style="color:inherit;">(774) 233-1966</a> to discuss.
+      </p>
+      <p class="footer-copy">
+        &copy; <span id="year"></span> The Corner Market &middot; 12 Concord St, Holliston, MA 01746
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // ── Copyright year ──
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── Sticky nav on scroll ──
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // ── Mobile nav toggle ──
+    const toggle = document.querySelector('.nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close mobile nav when a link is clicked
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ── Scroll-reveal via IntersectionObserver ──
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .reveal-heading').forEach(el => {
+      revealObserver.observe(el);
+    });
+  </script>
+
+</body>
+</html>
